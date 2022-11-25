@@ -24,18 +24,20 @@ const DrawerResponsiveCenter = ({
 	const setDimensions = (overrideTransition?: boolean): void => {
 		let em = document.getElementById("drawer-outer-container");
 		let n = document.getElementById("navbar-outer-container");
+		let c = document.getElementById("drawer-responsive-center-container");
 		let N = n?.getBoundingClientRect()?.height;
-		if (!em || !N || !n) return;
+		if (!em || !N || !n || !c) return;
 		let w = em.getBoundingClientRect().width;
 		let W = window.innerWidth;
 		let H = window.innerHeight;
 		let tra: string;
-		if (overrideTransition) {
-			tra = n.style.transition;
-			n.style.transition = "unset";
-			n.addEventListener("animationend", () => {
-				n && (n.style.transition = tra);
-			});
+		if (overrideTransition && c.style.transition !== "unset") {
+			tra = c.style.transition;
+			console.log("tra: ", tra);
+			c.style.transition = "unset";
+			setTimeout(() => {
+				c && (c.style.transition = tra);
+			}, 500);
 		}
 		setStyles({
 			width: isOpen ? `${W - w}px` : `${W}px`,
@@ -58,6 +60,7 @@ const DrawerResponsiveCenter = ({
 				"flex flex-col justify-center items-center absolute right-0 responsiveCenteredDrawerContainer will-change-auto opacity-0",
 				additionalClasses
 			)}
+			id="drawer-responsive-center-container"
 			style={styles}
 		>
 			{children}

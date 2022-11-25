@@ -45,7 +45,7 @@ const Navbar = ({}: NavbarProps) => {
 				{links.map((l, i) => {
 					const { text } = l;
 					return (
-						<div className="text-white cursor-pointer">
+						<div className="text-white cursor-pointer" key={`navbar-link-${i}`}>
 							<a {...l}>{text}</a>
 						</div>
 					);
